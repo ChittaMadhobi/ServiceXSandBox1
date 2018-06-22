@@ -4,15 +4,20 @@
   "description": "Developer Connection social media",
   "main": "server.js",
   "scripts": {
+    "client-install": "npm install --prefix clientx",
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "clientx": "npm start -prefix clientx",
+    "dev": "concurrently \"npm run server\" \"npm run clientx\""
   },
   "author": "Jit <sarbojit.project@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "concurrently": "^3.6.0",
     "express": "^4.16.3",
+    "gravatar": "^1.6.0",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.1.5",
     "passport": "^0.4.0",
