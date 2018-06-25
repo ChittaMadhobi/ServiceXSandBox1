@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/authActions';
 
 class Login extends Component {
   constructor() {
@@ -13,14 +18,32 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  // If someone use URL host:port/login ... it should not take to login if already so
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // We want to check if the user  is authenticated
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
-    const user = {
+    const userData = {
       email: this.state.email,
       password: this.state.password
     };
-    console.log('ABCDEF : ' + JSON.stringify(user));
+    //console.log('Component onSubmit Login.js : ' + JSON.stringify(userData));
+    this.props.loginUser(userData);
   }
 
   onChange(e) {
@@ -28,6 +51,8 @@ class Login extends Component {
   }
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div className="login">
         <div className="container">
@@ -41,22 +66,32 @@ class Login extends Component {
                 <div className="form-group">
                   <input
                     type="email"
-                    className="form-control form-control-lg"
+                    className={classnames('form-control form-control-lg', {
+                      'is-invalid': errors.email
+                    })}
                     placeholder="Email Address"
                     name="email"
                     value={this.state.email}
                     onChange={this.onChange}
                   />
+                  {errors.email && (
+                    <div className="invalid-feedback">{errors.email}</div>
+                  )}
                 </div>
                 <div className="form-group">
                   <input
                     type="password"
-                    className="form-control form-control-lg"
+                    className={classnames('form-control form-control-lg', {
+                      'is-invalid': errors.password
+                    })}
                     placeholder="Password"
                     name="password"
                     value={this.state.password}
                     onChange={this.onChange}
                   />
+                  {errors.password && (
+                    <div className="invalid-feedback">{errors.password}</div>
+                  )}
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
@@ -68,4 +103,19 @@ class Login extends Component {
   }
 }
 
-export default Login;
+// We take the name of the component.
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(withRouter(Login));

@@ -21,6 +21,12 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  // If someone use URL host:port/register ... it should not take to register if already so
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
   // If props changes from last to next, this function gets invoked automatically
   // We then load errors (of component state - in constructor) with the next
   // errors in application state (received from backend)
