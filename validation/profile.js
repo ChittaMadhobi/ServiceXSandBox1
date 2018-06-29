@@ -4,19 +4,17 @@ const isEmpty = require('./is-empty');
 
 // Each biz-function will have its own validation: data is the input data for validation
 module.exports = function validateProfileInput(data) {
-
   //console.log('email : ' + data.email + ' pwd: ' + data.password);
-  let errors = {};  // set it up as empty object
-
+  let errors = {}; // set it up as empty object
 
   data.handle = !isEmpty(data.handle) ? data.handle : '';
   data.status = !isEmpty(data.status) ? data.status : '';
   data.skills = !isEmpty(data.skills) ? data.skills : '';
 
   if (!Validator.isLength(data.handle, { min: 2, max: 40 })) {
-    errors.handle = "Handles needs to be between 2 to 40 characters";
+    errors.handle = 'Handles needs to be between 2 to 40 characters';
   }
-  // I think ... this is what it should be 
+  // I think ... this is what it should be
   // if (isEmpty(data.handle)) {
   //   errors.handle = 'Profile Handle is  required';
   // }
@@ -43,7 +41,7 @@ module.exports = function validateProfileInput(data) {
   }
   if (!isEmpty(data.facebook)) {
     if (!Validator.isURL(data.facebook)) {
-      errors.facebook = 'Invalid facebook URL';
+      errors.facebook = 'Invalid facebook URL ';
     }
   }
   if (!isEmpty(data.linkedin)) {
@@ -64,6 +62,6 @@ module.exports = function validateProfileInput(data) {
 
   return {
     errors,
-    isValid: isEmpty(errors)   // Is our empty check function 
-  }
-} 
+    isValid: isEmpty(errors) // Is our empty check function
+  };
+};

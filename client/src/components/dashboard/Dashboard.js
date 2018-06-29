@@ -2,12 +2,19 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCurrentProfile } from '../../actions/profileActions';
+import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
+import ProfileActions from './ProfileAction';
+import Experience from './Experience';
+import Education from './Education';
 
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
+  }
+
+  onDeleteClick() {
+    this.props.deleteAccount();
   }
 
   render() {
@@ -24,7 +31,24 @@ class Dashboard extends Component {
       // Object.keys gets the  keys of the object. 0 means nothin exists
       if (Object.keys(profile).length > 0) {
         // There is a  profile
-        dashboardContent = <h4> TODO: DISPLAY PROfiLE </h4>;
+        dashboardContent = (
+          <div>
+            <p className="lead text-muted">
+              Welcome
+              <Link to={`/profile/${profile.handle}`}> {user.name} </Link>
+            </p>
+            <ProfileActions />
+            <Experience experience={profile.experience} />
+            <Education education={profile.education} />
+            <div style={{ marginBottom: '60px' }} />
+            <button
+              onClick={this.onDeleteClick.bind(this)}
+              className="btn btn-danger"
+            >
+              Delete My Account{' '}
+            </button>
+          </div>
+        );
       } else {
         // There is no profile but logged in
         dashboardContent = (
@@ -64,11 +88,12 @@ const mapStateToProps = state => ({
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile }
+  { getCurrentProfile, deleteAccount }
 )(Dashboard);
