@@ -10,12 +10,15 @@ import React from 'react';
 //   <footer class="container-fluid ">
 export default () => {
   return (
-    <footer>
-      <nav className="navbar fixed-bottom navbar-dark bg-dark text-white">
-        <div className="d-flex align-content-center flex-wrap">
-          Copyright &copy; {new Date().getFullYear()} Baand
-        </div>
-      </nav>
-    </footer>
+    <div className="container">
+      <footer>
+        <nav className="navbar fixed-bottom bg-dark text-white text-center">
+          {/*<nav className="navbar fixed-bottom navbar-dark bg-dark text-white"> */}
+          {/*<div className="d-flex align-content-center flex-wrap"> */}
+          Copyright &copy; {new Date().getFullYear()} Baand {/* </div> */}
+          {/*</div> */}
+        </nav>
+      </footer>
+    </div>
   );
 };
