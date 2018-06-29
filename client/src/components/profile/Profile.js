@@ -22,6 +22,14 @@ class Profile extends Component {
     }
   }
 
+  // To redirect if someone gives face profile name in URL (e.g. localhost:3000/profile/testxx)
+  // then it redirects it to a error-page (not found) instead of spinner
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.profile.profile === null && this.props.profile.loading) {
+      this.props.history.push('/not-found');
+    }
+  }
+
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
