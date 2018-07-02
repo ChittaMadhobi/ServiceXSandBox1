@@ -5,7 +5,6 @@ import isEmpty from '../../validation/is-empty';
 
 class ProfileItem extends Component {
   render() {
-    // This is not from redux but from parent component Profile
     const { profile } = this.props;
 
     return (
@@ -15,29 +14,24 @@ class ProfileItem extends Component {
             <img src={profile.user.avatar} alt="" className="rounded-circle" />
           </div>
           <div className="col-lg-6 col-md-4 col-8">
-            <h3> {profile.user.name} </h3>
+            <h3>{profile.user.name}</h3>
             <p>
-              {' '}
-              {profile.status}
-              {isEmpty(profile.compay) ? null : (
-                <span> at {profile.company}</span>
+              {profile.status}{' '}
+              {isEmpty(profile.company) ? null : (
+                <span>at {profile.company}</span>
               )}
             </p>
             <p>
-              {' '}
               {isEmpty(profile.location) ? null : (
-                <span> {profile.location} </span>
+                <span>{profile.location}</span>
               )}
             </p>
-            <Link
-              to={`/profile/${profile.handle}`}
-              className="btn btn-info btn-sm"
-            >
+            <Link to={`/profile/${profile.handle}`} className="btn btn-info">
               View Profile
             </Link>
           </div>
           <div className="col-md-4 d-none d-md-block">
-            <h4>Skill Set </h4>
+            <h4>Skill Set</h4>
             <ul className="list-group">
               {profile.skills.slice(0, 4).map((skill, index) => (
                 <li key={index} className="list-group-item">
@@ -47,8 +41,6 @@ class ProfileItem extends Component {
               ))}
             </ul>
           </div>
-          <br />
-          <br />
         </div>
       </div>
     );
@@ -59,5 +51,4 @@ ProfileItem.propTypes = {
   profile: PropTypes.object.isRequired
 };
 
-// We do not need connect for we are not going to redux here.
 export default ProfileItem;
