@@ -80,7 +80,7 @@ class CreateProfile extends Component {
             placeholder="Twitter Profile URL"
             name="twitter"
             icon="fab fa-twitter"
-            value={this.onChange}
+            value={this.state.twitter}
             onChange={this.onChange}
             error={errors.twitter}
           />

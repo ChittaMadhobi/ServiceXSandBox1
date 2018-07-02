@@ -6,6 +6,19 @@ import isEmpty from '../../validation/is-empty';
 class ProfileItem extends Component {
   render() {
     const { profile } = this.props;
+    // console.log(
+    //   'ProfileItem in render this.props: ' + JSON.stringify(this.props)
+    // );
+
+    // console.log('ProfileItem in render profile: ' + JSON.stringify(profile));
+
+    let skills;
+    if (!profile.skills) {
+      skills = [];
+    } else {
+      skills = profile.skills;
+    }
+    // console.log('==================================================');
 
     return (
       <div className="card card-body bg-light mb-3">
@@ -33,7 +46,7 @@ class ProfileItem extends Component {
           <div className="col-md-4 d-none d-md-block">
             <h4>Skill Set</h4>
             <ul className="list-group">
-              {profile.skills.slice(0, 4).map((skill, index) => (
+              {skills.slice(0, 4).map((skill, index) => (
                 <li key={index} className="list-group-item">
                   <i className="fa fa-check pr-1" />
                   {skill}

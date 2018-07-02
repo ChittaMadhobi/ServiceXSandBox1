@@ -20,9 +20,22 @@ class PostItem extends Component {
 
   findUserLike(likes) {
     const { auth } = this.props;
-    if (likes.filter(like => like.user === auth.user.id).length > 0) {
-      return true;
+    // console.log(
+    //   'PostItem findUserLikes(likes) Likes= ' +
+    //     likes +
+    //     '  this.props: ' +
+    //     JSON.stringify(this.props)
+    // );
+    // console.log('==================================================');
+    if (likes) {
+      // console.log('findUserLike likes is true of has value');
+      if (likes.filter(like => like.user === auth.user.id).length > 0) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
+      // console.log('findUserLike likes is false of has no value');
       return false;
     }
   }
@@ -30,6 +43,17 @@ class PostItem extends Component {
   render() {
     const { post, auth, showActions } = this.props;
 
+    // console.log('PostItem render props : ' + JSON.stringify(this.props));
+    // console.log('--------------------------------------------------');
+    // console.log('PostItem render post.likes = ' + post.likes);
+
+    let likes;
+    if (!post.likes) {
+      likes = [];
+    } else {
+      likes = post.likes;
+    }
+    // console.log('==================================================');
     return (
       <div className="card card-body mb-3">
         <div className="row">
@@ -55,10 +79,10 @@ class PostItem extends Component {
                 >
                   <i
                     className={classnames('fas fa-thumbs-up', {
-                      'text-info': this.findUserLike(post.likes)
+                      'text-info': this.findUserLike(likes)
                     })}
                   />
-                  <span className="badge badge-light">{post.likes.length}</span>
+                  <span className="badge badge-light">{likes.length}</span>
                 </button>
                 <button
                   onClick={this.onUnlikeClick.bind(this, post._id)}
@@ -88,8 +112,6 @@ class PostItem extends Component {
   }
 }
 
-// By default, all the buttons and filters  should work. However, if called from
-// Post for one post then don't show posts likes, dislikes, comlment etc.
 PostItem.defaultProps = {
   showActions: true
 };
