@@ -37,7 +37,7 @@ app.use('/api/posts', posts);
 //=============== Server STATIC ASSETS if in production ========
 if (process.env.NODE_ENV === 'production') {
   // Set a static folder and point to client side, build as
-  app.use(express.static(client / build));
+  app.use(express.static('client/build'));
   // client is the client-directory or client-side and 'build' is the build
   // directory created via building the client side (check client build in deploy doc)
   // In reality, we would ask heroku to do the build and not locally build it
