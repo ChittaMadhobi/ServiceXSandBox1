@@ -10,7 +10,7 @@ class ProfileItem extends Component {
     //   'ProfileItem in render this.props: ' + JSON.stringify(this.props)
     // );
 
-    // console.log('ProfileItem in render profile: ' + JSON.stringify(profile));
+    //console.log('ProfileItem in render profile: ' + JSON.stringify(profile));
 
     let skills;
     if (!profile.skills) {

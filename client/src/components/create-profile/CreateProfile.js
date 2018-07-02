@@ -46,7 +46,7 @@ class CreateProfile extends Component {
     //console.log('Profile onSubmit e: ' + e);
 
     const profileData = {
-      handle: this.state.handle,
+      handle: this.state.handle.trim(),
       company: this.state.company,
       website: this.state.website,
       location: this.state.location,

@@ -33,6 +33,8 @@ export const getCurrentProfile = () => dispatch => {
 // Get profile for profile item (cards list) by handle
 export const getProfileByHandle = handle => dispatch => {
   dispatch(setProfileLoading());
+  // console.log('+++++++++++++++++++++++++++++++++++++++++++');
+  // console.log('profileActions.js getProfileByHandle handle = ' + handle);
   axios
     .get(`/api/profile/handle/${handle}`)
     .then(res =>

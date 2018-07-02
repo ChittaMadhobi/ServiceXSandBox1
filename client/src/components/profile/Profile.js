@@ -14,17 +14,31 @@ import { getProfileByHandle } from '../../actions/profileActions';
 
 class Profile extends Component {
   componentDidMount() {
+    // console.log(
+    //   'Profile componentDidMount [this.props.match.params.handle]' +
+    //     this.props.match.params.handle
+    // );
+    // console.log('------------------------------------------');
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
       // console.log(
-      //   'this.props.match.params.handle: ' + this.props.match.params.handle
+      //   'INSIDE -- this.props.match.params.handle: ' +
+      //     this.props.match.params.handle
       // );
     }
   }
 
-  // To redirect if someone gives face profile name in URL (e.g. localhost:3000/profile/testxx)
+  // To redirect if someone gives fake profile name in URL (e.g. localhost:3000/profile/testxx)
   // then it redirects it to a error-page (not found) instead of spinner
   componentWillReceiveProps(nextProps) {
+    // console.log(
+    //   'Profile onClick View Profile - nextProp= ' + JSON.stringify(nextProps)
+    // );
+    // console.log('==============================================');
+    // console.log(
+    //   'Profile onClick View Profile - nextProp.profile= ' +
+    //     JSON.stringify(nextProps.profile)
+    // );
     if (nextProps.profile.profile === null && this.props.profile.loading) {
       this.props.history.push('/not-found');
     }
@@ -32,6 +46,10 @@ class Profile extends Component {
 
   render() {
     const { profile, loading } = this.props.profile;
+
+    // console.log('Profile - in render profile : ' + JSON.stringify(profile));
+    // console.log(' ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    // console.log('Profile - in render loading : ' + loading);
     let profileContent;
 
     if (profile === null || loading) {
